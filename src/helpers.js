@@ -683,21 +683,15 @@ export function getStorageVolumesUsage(vms, storagePool) {
 
 /**
  * Returns a list of potential physical devices suitable as network devices
- * by merging all network node devices and interfaces.
  *
  * @returns {array}
  */
 export function getNetworkDevices() {
-    const { nodeDevices, interfaces } = store.getState();
     const devs = [];
 
-    nodeDevices.forEach(dev => {
+    store.getState().nodeDevices.forEach(dev => {
         if (dev.capability.type === "net")
             devs.push(dev.capability.interface);
-    });
-
-    interfaces.forEach(iface => {
-        devs.push(iface.name);
     });
 
     const uniq = [...new Set(devs)];

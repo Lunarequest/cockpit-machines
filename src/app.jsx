@@ -247,7 +247,7 @@ class AppActive extends React.Component {
     }
 
     render() {
-        const { vms, config, storagePools, systemInfo, ui, networks, nodeDevices, interfaces } = store.getState();
+        const { vms, config, storagePools, systemInfo, ui, networks, nodeDevices } = store.getState();
         const { path, cloudInitSupported, downloadOSSupported, unattendedSupported, unattendedUserLogin, virtInstallAvailable } = this.state;
         const combinedVms = [...vms, ...dummyVmsFilter(vms, ui.vms)];
         const properties = {
@@ -337,7 +337,6 @@ class AppActive extends React.Component {
                     ui={ui}
                     libvirtVersion={systemInfo.libvirtVersion}
                     storagePools={storagePools}
-                    interfaces={interfaces}
                     networks={networks}
                     actions={vmActions}
                     resourceHasError={this.state.resourceHasError}

@@ -26,7 +26,6 @@ import {
     UNDEFINE_NETWORK,
     UNDEFINE_STORAGE_POOL,
     UNDEFINE_VM,
-    UPDATE_ADD_INTERFACE,
     UPDATE_ADD_NETWORK,
     UPDATE_ADD_NODE_DEVICE,
     UPDATE_ADD_STORAGE_POOL,
@@ -138,13 +137,6 @@ export function updateDomainSnapshots({ connectionName, domainPath, snaps }) {
             domainPath,
             snaps,
         },
-    };
-}
-
-export function updateOrAddInterface(props) {
-    return {
-        type: UPDATE_ADD_INTERFACE,
-        payload: { iface: props },
     };
 }
 

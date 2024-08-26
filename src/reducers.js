@@ -29,7 +29,6 @@ import {
     UNDEFINE_NETWORK,
     UNDEFINE_STORAGE_POOL,
     UNDEFINE_VM,
-    UPDATE_ADD_INTERFACE,
     UPDATE_ADD_NETWORK,
     UPDATE_ADD_NODE_DEVICE,
     UPDATE_ADD_VM,
@@ -91,33 +90,6 @@ function lazyComposedReducer({ parentReducer, getSubreducer, getSubstate, setSub
         }
         return newState;
     };
-}
-
-function interfaces(state, action) {
-    state = state || [];
-
-    switch (action.type) {
-    case UPDATE_ADD_INTERFACE: {
-        const { iface } = action.payload;
-
-        if (isObjectEmpty(iface))
-            return [...state, iface]; // initialize iface to empty object
-
-        const connectionName = iface.connectionName;
-        const index = getFirstIndexOfResource(state, 'name', iface.name, connectionName);
-        if (index < 0) { // add
-            const initObjIndex = state.findIndex(obj => isObjectEmpty(obj));
-            if (initObjIndex >= 0)
-                state.splice(initObjIndex, 1); // remove empty initial object
-            return [...state, iface];
-        }
-
-        const updatedIface = Object.assign({}, state[index], iface);
-        return replaceResource({ state, updatedResource: updatedIface, index });
-    }
-    default:
-        return state;
-    }
 }
 
 function networks(state, action) {
@@ -428,7 +400,6 @@ export default combineReducers({
         getSubstate: (state) => state.providerState,
         setSubstate: (state, subState) => Object.assign({}, state, { providerState: subState }),
     }),
-    interfaces,
     networks,
     nodeDevices,
     vms,
