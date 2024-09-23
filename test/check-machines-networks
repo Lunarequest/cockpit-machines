@@ -26,7 +26,8 @@ from machinesxmls import TEST_NETWORK2_XML, TEST_NETWORK3_XML, TEST_NETWORK4_XML
 
 
 def getNetworkDefaultRouteDevice(m):
-    routes = json.loads(m.execute("ip --json route show default"))
+    routes = json.loads(m.execute("ip --json route"))
+    routes = [route for route in routes if "virbr" not in route["dev"]]
     return routes[0]["dev"]
 
 
